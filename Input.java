@@ -9,7 +9,7 @@ public class Input {
     private Map map;
 
     public Input(Map map) {
-        this.map = map.getMap();
+        this.map = map;
     }
 
     private boolean isNumber(String num) {
@@ -23,10 +23,14 @@ public class Input {
     }
     
     private boolean checkIfInputNumberIsAllowed(int number) {
-        for(int i = 0; i < 9; i++) {
-            if(this.map[i][y].getValue() == number)
-                return false;
-        }                
+        if(!this.map.checkHorizontalLineIfNumberValid(this.x, this.y, this.number))  
+            return false;
+        if(!this.map.checkVerticalLineIfNumberValid(this.x, this.y, this.number))
+            return false;
+        if(!this.map.checkThreeByThreeGridValidation(this.x, this.y, this.number))
+            return false;
+
+        return true;                
     }
 
     public void getCoordinates() {
