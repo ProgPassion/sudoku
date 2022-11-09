@@ -1,5 +1,3 @@
-package helloworld;
-
 import java.util.Scanner;
 
 public class Input {
@@ -30,7 +28,7 @@ public class Input {
         if(!this.map.checkThreeByThreeGridValidation(this.x, this.y, this.number))
             return false;
 
-        return true;                
+        return true;
     }
 
     public void getCoordinates() {
@@ -49,14 +47,22 @@ public class Input {
             if(!this.isNumber(coordinates[0]) || !this.isNumber(coordinates[1])) 
                 continue;   
 
-            this.x = Integer.parseInt(coordinates[0]);
-            this.y = Integer.parseInt(coordinates[1]);
+            this.x = Integer.parseInt(coordinates[0]) - 1;
+            this.y = Integer.parseInt(coordinates[1]) - 1;
 
-            if((this.x >= 1 && this.x <= 9) && (this.y >= 1 && this.y <= 9)) 
+            if(!(this.x >= 0 && this.x <= 8) && (this.y >= 0 && this.y <= 8)) {
+                System.out.println("The coordinate numbers must be from the range 1-9!");
+                continue;
+            }
+
+            if(this.map.checkIfCoordsAreNotFromDefaultMap(this.x, this.y)) {
                 break;
+            }
+            else {
+                System.out.println("You are not allowed to override the map default cells");
+            }
+                
         } while(true);
-        scan.close();
-        System.out.println("Input was: " + coordinates[0] + "," + coordinates[1]);  
     }
 
     public void getNumber() {
@@ -75,8 +81,12 @@ public class Input {
             if(this.number < 1 || this.number > 9)
                 continue;
 
+            if(this.checkIfInputNumberIsAllowed(this.number)) {
+                map.setCellValue(this.x, this.y, this.number);
+                break;
+            }
+            
 
         } while(true);
-        scan.close();
     }
 }
