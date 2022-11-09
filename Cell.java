@@ -1,4 +1,3 @@
-package helloworld;
 public class Cell {
 
     private int value = 0;
