@@ -21,6 +21,9 @@ public class Input {
     }
     
     private boolean checkIfInputNumberIsAllowed(int number) {
+        // bypass the check if the number is zero so you can clean a specific cell
+        if(number == 0)
+            return true;
         if(!this.map.checkHorizontalLineIfNumberValid(this.x, this.y, this.number))  
             return false;
         if(!this.map.checkVerticalLineIfNumberValid(this.x, this.y, this.number))
@@ -69,7 +72,7 @@ public class Input {
         String inputNum;
         Scanner scan;
         do {
-            System.out.print("Enter a number from 1-9:");
+            System.out.print("Enter a number from 1-9 (or 0 to clean the cell val):");
             scan = new Scanner(System.in);
 
             inputNum = scan.nextLine();
@@ -78,7 +81,7 @@ public class Input {
             
             this.number = Integer.parseInt(inputNum);
 
-            if(this.number < 1 || this.number > 9)
+            if(this.number < 0 || this.number > 9)
                 continue;
 
             if(this.checkIfInputNumberIsAllowed(this.number)) {
