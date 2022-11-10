@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Map {
     
     private Cell[][] map;
-    private int[][] solvedMap = new int[9][9];
     private NumGenerator numGenerator;
     private List<int[]> freeCellCoordinates = new ArrayList<int[]>();
 
@@ -57,7 +56,6 @@ public class Map {
 
             if(rulesNotBroken) {
                 this.map[row][col].setValue(randNum);
-                this.solvedMap[row][col] = randNum;
                 index++;
             } 
        }
@@ -88,7 +86,7 @@ public class Map {
     public boolean checkIfSudokuIsSolved() {
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
-                if(this.map[i][j].getValue() != this.solvedMap[i][j])
+                if(this.map[i][j].getValue() == 0)
                     return false;
             }
         }
